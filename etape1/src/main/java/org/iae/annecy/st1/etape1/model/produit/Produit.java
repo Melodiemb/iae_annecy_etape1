@@ -1,6 +1,9 @@
 package org.iae.annecy.st1.etape1.model.produit;
 
-public class Produit {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Produit implements Serializable{
 
 	private String description, ref, nom, descriptionProduit;
 	private double prix;
@@ -38,7 +41,7 @@ public class Produit {
 		String t = null;
 	t += (this.getRef() + " "+ this.getNom() + " " + this.getDescription() + " " + this.getPrix() + " " + this.getDescriptionProduit() + "\n" );
 	return t;
-}
+	}
 	public String getNom() {
 		return nom;
 	}
