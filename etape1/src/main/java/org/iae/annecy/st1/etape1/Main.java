@@ -155,8 +155,8 @@ public class Main{
 	}
 	
 	public static void afficherMenu(){
-		System.out.println("Bienvenue terrien! ʕ•́ᴥ•̀ʔっ \n");
-		System.out.println("♡ Menu du catalogue ♡ \n"
+		System.out.println("•*´¨`*•.¸¸Bienvenue terrien! ʕ•́ᴥ•̀ʔっ •*´¨`*•.¸\n");
+		System.out.println("\t♡ Menu du catalogue ♡ \n"
 				+ "1. Modifier un produit \n"
 				+ "2. Afficher le catalogue \n"
 				+ "3. Ajouter un produit");
