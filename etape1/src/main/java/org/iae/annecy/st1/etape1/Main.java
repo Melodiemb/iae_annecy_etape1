@@ -72,13 +72,9 @@ public class Main{
 		Produit p1 = new Produit("REFLS","une lampe", "le produit est en tissu",5," Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
 		Produit p2 = new Produit("REFGE","une porte-feuille", "le produit est en cuir",6," Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
 		
-		
 		/*c1.ajouterProduit(p1);
 		c1.ajouterProduit(p2);
 		*/
-		
-		
-		 //c.afficherMaListe(); 
 		
 		Scanner sc = new Scanner(System.in);
 		int choixMenu = 0;
@@ -159,7 +155,8 @@ public class Main{
 	}
 	
 	public static void afficherMenu(){
-		System.out.println("Menu du catalogue \n"
+		System.out.println("Bienvenue terrien! ʕ•́ᴥ•̀ʔっ \n");
+		System.out.println("♡ Menu du catalogue ♡ \n"
 				+ "1. Modifier un produit \n"
 				+ "2. Afficher le catalogue \n"
 				+ "3. Ajouter un produit");
