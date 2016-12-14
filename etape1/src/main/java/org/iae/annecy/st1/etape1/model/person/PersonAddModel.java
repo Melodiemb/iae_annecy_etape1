@@ -20,8 +20,8 @@ public class PersonAddModel implements Model {
 
 	public DataView get(DataParam datas) {
 		final DataView datasRet = new UserData();
-		final Boolean isAdded = add(new Person(datas));
-		datasRet.add("status", isAdded.toString());
+		//final Boolean isAdded = add(new Person(datas));
+	//	datasRet.add("status", isAdded.toString());
 
 		return datasRet;
 	}

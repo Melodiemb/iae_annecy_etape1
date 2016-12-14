@@ -7,7 +7,7 @@ import org.iae.annecy.st1.common.mvc.BasicDataView;
 import org.iae.annecy.st1.common.mvc.DataView;
 
 public class Person implements Serializable{
-
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String nom;
 	private String prenom;

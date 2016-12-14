@@ -7,8 +7,11 @@ package org.iae.annecy.st1.etape1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.Savepoint;
 import java.util.Scanner;
 
 import org.iae.annecy.st1.common.mvc.BasicDataParam;
@@ -139,7 +142,7 @@ public class Main{
 			do{
 				MenuView.afficherMenu();
 
-				choixMenu = sc.nextInt(); //ce sera l'entier suivant
+				choixMenu = sc.nextInt(); 
 				if (choixMenu ==1){
 					String choixProduit = null;
 
@@ -151,7 +154,7 @@ public class Main{
 					int choixAttribut = 0;
 					do{
 						MenuView.afficherAttribut();
-						choixAttribut = sc.nextInt(); // on a recupere ce qu'il veut changer
+						choixAttribut = sc.nextInt(); 
 						if (choixAttribut ==1){
 							ConsoleHelper.display("Veuillez rentrer le prix désiré: ");
 							c1.rechercherProduits(choixProduit).setPrix(sc.nextDouble());//iterateur il manque les set prix
@@ -202,7 +205,7 @@ public class Main{
 					ConsoleHelper.display("Veuillez renseigner le prix desiré pour ce produit");
 					int prix = sc.nextInt();
 					while (prix<=0){
-						ConsoleHelper.display("Le prix est négatif, veuillez inserer en un nouveau");
+						ConsoleHelper.display("Le prix est négatif, veuillez insérer en un nouveau");
 						prix = sc.nextInt();
 					}
 					new Produit(ref,nom, description, prix, descriptionProduit);
@@ -211,7 +214,7 @@ public class Main{
 					ConsoleHelper.display("Vous venez de créer un produit");
 				}
 				c1.save();
-				ConsoleHelper.display("Voulez-vous revenir au menu Ctalogue ? 1. Oui 2. Non");
+				ConsoleHelper.display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
 				choixRetour = sc.nextInt();
 
 			} while(choixRetour == 1);
@@ -222,14 +225,18 @@ public class Main{
 
 	private static void produitJDE() throws IOException, Exception{
 
-
 		Client cli1 = new Client();
-
+		Person pers1 = new Person(18,"Jean-pierre","JP");
+		
+		
 		try {
 			File fichier = new File("file02");
 			ObjectInputStream ois = new ObjectInputStream (new FileInputStream(fichier));
 			cli1 = (Client) ois.readObject();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e){
+			cli1 = new Client();
+			cli1.ajouterClient(pers1);
+		}
 
 			initUserModel();
 			initCustomerModel();
@@ -241,9 +248,9 @@ public class Main{
 			MenuView.afficherMenuClient();
 			choixMenu = scan.nextInt();
 			
-			Person pers1 = new Person(18,"Jean-pierre","JP");
-			cli1.ajouterClient(pers1);
-			
+			//Person pers1 = new Person(18,"Jean-pierre","JP");
+			//cli1.ajouterClient(pers1);
+			int choixMe = 0;
 			do{
 
 				
@@ -274,7 +281,9 @@ public class Main{
 					Person newpersonne = new Person(personId,personNom,personPrenom);
 
 					cli1.ajouterClient(newpersonne);
-
+					cli1.saveCli();
+					
+					ConsoleHelper.display("Vous venez de créer un client.\n");
 
 					/*final DataView customerAddData = mainController.get("person:add", newCustomer);
 					final StringView customerAddView = new PersonAddFrenchView();
@@ -284,8 +293,22 @@ public class Main{
 					MenuView.afficherMenuClient();
 					choixMenu = scan.nextInt(); 
 					break;
-				}
-			}while(choixMenu<3);
+				case 3 :	
+					ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
+					
+					ConsoleHelper.display(cli1.afficherListeClient());
+					
+					//Scanner scan1 = new Scanner(System.in);
+					/*int (chClient > clts.getPerson().size()){
+						ConsoleHelper.display("Message d'erreur, veuillez rentrer un client valide");
+					*/
+					break;
+					}
+				
+				ConsoleHelper.display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
+				choixRetour = scan.nextInt();
+			}while(choixMe == 2);
+			
 
 
 
@@ -334,4 +357,4 @@ public class Main{
 			//ConsoleHelper.display(userView.build(userData));
 
 		}
-	}
+	

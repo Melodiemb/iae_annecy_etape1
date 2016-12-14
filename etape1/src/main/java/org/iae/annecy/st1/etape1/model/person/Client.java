@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.iae.annecy.st1.etape1.model.produit.Produit;
 
 public class Client implements Serializable{
-
+private static final long serialVersionUID = 1L;
 	
 	private ArrayList <Person> ListeClient = new ArrayList <Person>();
 
@@ -24,7 +25,7 @@ public class Client implements Serializable{
 	
 	public void ajouterClient(Person cli){
 		this.ListeClient.add(cli);
-		//save();
+		saveCli();
 }
 	
 	public String afficherListeClient(){ 
@@ -47,5 +48,17 @@ public class Client implements Serializable{
 		}	
 	
 	}
+	
+	public Person rechercherClient(int id){
+		Iterator<Person> iti = this.getListeClient().iterator();
+		Person pers = new Person();
+		while (iti.hasNext()){
+			Person current = iti.next();
+			if(current.getId().equals(id)){
+				return current;
+			}
+		}
+		return null;
+}
 }
 

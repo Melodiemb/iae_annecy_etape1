@@ -32,7 +32,8 @@ public class MenuView {
 	public static void afficherMenuClient(){
 		ConsoleHelper.display( 
 				"1.Afficher la liste des clients\n"
-						+"2.Ajouter un client\n");
+						+"2.Ajouter un client\n"
+						+ "3.Retrouver & modifier un client");
 	}
 	
 	public static void menupanier(){

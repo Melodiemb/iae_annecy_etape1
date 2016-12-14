@@ -4,8 +4,9 @@ import org.iae.annecy.st1.common.mvc.Controller;
 import org.iae.annecy.st1.common.mvc.DataParam;
 import org.iae.annecy.st1.common.mvc.DataView;
 import org.iae.annecy.st1.common.mvc.Model;
+import org.iae.annecy.st1.etape1.controller.MainController;
 
-public class PersonGetModel implements Model {
+public class PersonGetModel {
 
 	public Person get(Integer id) {
 		Person retrunVal = null;
@@ -23,16 +24,21 @@ public class PersonGetModel implements Model {
 		return null;
 	}
 
-	public DataView get(DataParam datas) {
+	/*public DataView get(DataParam datas) {
 		Person customer = get(Integer.parseInt(datas.getData("id")));
-		return customer.asDataView();
-	}
+	//	return customer.asDataView();
+	}*/
 
 	public String getPath() {
 		return "person:get";
 	}
 
-	public void register(Controller controller) {
-		controller.add(getPath(), this);
+	public void register(MainController mainController) {
+		// TODO Auto-generated method stub
+		
 	}
-}
+
+	/*public void register(Controller controller) {
+		controller.add(getPath(), this);*/
+	}
+
