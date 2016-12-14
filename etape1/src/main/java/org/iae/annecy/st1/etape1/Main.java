@@ -59,7 +59,10 @@ public class Main{
 	 */
 	public static void main(final String[] args) throws Exception {
 		//throws IOException, ClassNotFoundException {
-
+		Catalogue c1 = null;
+		c1 = new Catalogue();
+		
+		
 		Scanner scanBasic = new Scanner(System.in);
 		int choixMenu = 0;
 		int choixRetour = 0;
@@ -82,8 +85,14 @@ public class Main{
 				//a afire
 				MenuView.menupanier();
 				choixMenu = scanBasic.nextInt(); 
+				CatalogueController cat1 = new CatalogueController();
+				cat1.setCat(c1); 
+				ConsoleHelper.display(cat1.get());
 				break ;
+				
+				
 			}
+			
 		}while(choixMenu<4);
 	}
 
@@ -297,7 +306,24 @@ public class Main{
 					ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
 					
 					ConsoleHelper.display(cli1.afficherListeClient());
+					int chxClient = scan.nextInt();
+					ConsoleHelper.display("Quel attribut souhaitez-vous changer?" + "\n 1.Nom" +"\n 2.Prénom");
+					int chxAttribut = scan.nextInt();
 					
+					switch(chxAttribut){
+					case 1:
+						ConsoleHelper.display("Quel est le nouveau nom?");
+						cli1.rechercherClient(chxClient).setNom(scan.next());
+						break;
+					case 2 :
+					ConsoleHelper.display("Quel est le nouveau prénom?");
+					cli1.rechercherClient(chxClient).setPrenom(scan.next());
+					break;
+					
+					
+					}
+					
+					cli1.saveCli();	
 					//Scanner scan1 = new Scanner(System.in);
 					/*int (chClient > clts.getPerson().size()){
 						ConsoleHelper.display("Message d'erreur, veuillez rentrer un client valide");
