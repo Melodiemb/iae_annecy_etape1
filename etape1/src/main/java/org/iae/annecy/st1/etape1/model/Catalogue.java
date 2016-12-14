@@ -20,6 +20,7 @@ public class Catalogue implements Serializable{
 	public ArrayList<Produit> getmaListe() {
 		return maListe;
 	}
+	
 	public Produit rechercherProduits(String ref){
 		Iterator<Produit> it = this.getmaListe().iterator();
 		Produit unProduit = new Produit();
@@ -33,6 +34,7 @@ public class Catalogue implements Serializable{
 		return unProduit;
 	
 	}
+	
 	public void save(){
 		try{
 			FileOutputStream fos = new FileOutputStream("file");
@@ -47,6 +49,7 @@ public class Catalogue implements Serializable{
 	public void setMaListe(ArrayList<Produit> maListe){
 		this.maListe = maListe;
 	}
+	
 	public void getMaListe(ArrayList<Produit> maListe) {
 		this.maListe = maListe;
 	}
@@ -56,9 +59,6 @@ public class Catalogue implements Serializable{
 		this.maListe.add(p);
 		save();
 	}
-
-			
-	
 
 	public String afficherMaListe() {
 		String text = "";

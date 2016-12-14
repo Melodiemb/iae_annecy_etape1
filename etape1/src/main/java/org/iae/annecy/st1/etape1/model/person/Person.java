@@ -1,40 +1,29 @@
 package org.iae.annecy.st1.etape1.model.person;
 
+import java.io.Serializable;
+
 import org.iae.annecy.st1.common.mvc.AbstractDataView;
 import org.iae.annecy.st1.common.mvc.BasicDataView;
 import org.iae.annecy.st1.common.mvc.DataView;
 
-public class Person extends AbstractDataView {
+public class Person implements Serializable{
 
 	private Integer id;
 	private String nom;
 	private String prenom;
 
 	public Person() {
-		super();
+		
 	}
 
 	public Person(Integer id, String nom, String prenom) {
-		super();
+		
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 	
-	public Person(DataView datas){
-		this.id = Integer.parseInt(datas.getData("id"));
-		this.prenom = datas.getData("prenom");
-		this.nom = datas.getData("nom");
-	}
-
-	public DataView asDataView() {
-		DataView datas = new BasicDataView();
-		datas.add("id", id.toString());
-		datas.add("nom", nom);
-		datas.add("prenom", prenom);
-		
-		return datas;
-	}
+	
 
 	public Integer getId() {
 		return id;
