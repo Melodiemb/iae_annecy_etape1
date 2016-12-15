@@ -37,8 +37,8 @@ public class MenuView {
 	}
 	
 	public static void menupanier(){
-		ConsoleHelper.display( 
-				"1.Ajouter produit \n"
-						+"2.afficher produit \n");
+		ConsoleHelper.display("Bonjour, vous pouvez faire votre choix entre les différentes rubriques \n"
+				 + "1.Afficher la liste de produits \n"
+				+ "2.Ajouter des produits \n");
 	}
 }
