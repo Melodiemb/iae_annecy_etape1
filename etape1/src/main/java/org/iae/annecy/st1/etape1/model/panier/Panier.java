@@ -26,34 +26,30 @@ public class Panier {
 	public void setProduits(ArrayList<Produit> produits) {
 		this.produits = produits;
 	}
-	
-	public void ajouterproduit(Produit prod){
+
+	public void ajouterproduit(Produit prod) {
 		this.getProduits().add(prod);
 	}
 
 	public String afficherListePanier() {
 		String t = "";
-		for (Produit produit : produits){
+		for (Produit produit : produits) {
 			t += produit.afficherProdpanier();
 		}
 		return t;
 	}
-	public Produit retrouveProduitpanier(String reference){
+
+	public Produit retrouveProduitpanier(String reference) {
 		Iterator<Produit> iter = this.getProduits().iterator();
-			Produit prod = new Produit();
-		while(iter.hasNext()){
+		Produit prod = new Produit();
+		while (iter.hasNext()) {
 			Produit current = iter.next();
-			if(current.getRef().equals(reference)){
+			if (current.getRef().equals(reference)) {
 				prod = current;
 				break;
 			}
 		}
 		return prod;
 	}
-	/*ConsoleHelper.display("Votre panier:\n"
-			+ "Libellé"
-			+ "Quantité"
-			+ "Prix unitaire");*/
-	
 
 }

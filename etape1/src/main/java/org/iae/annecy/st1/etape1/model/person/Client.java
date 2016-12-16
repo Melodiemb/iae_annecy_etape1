@@ -1,5 +1,6 @@
 package org.iae.annecy.st1.etape1.model.person;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -13,6 +14,9 @@ public class Client implements Serializable{
 private static final long serialVersionUID = 1L;
 	
 	private ArrayList <Person> ListeClient = new ArrayList <Person>();
+
+	
+	
 
 	public ArrayList <Person> getListeClient() {
 		return ListeClient;
@@ -30,14 +34,13 @@ private static final long serialVersionUID = 1L;
 	
 	public String afficherListeClient(){ 
 	String text = "";
-	int i = 1;
+	//int i = 1;
 	for(Person cli : ListeClient){
-		text += ( i+"Le numéro ID du client est : " + cli.getId() + "," + cli.getNom() + cli.getPrenom()+  "\n");
-		i++;
+		text += ("Le numéro ID du client est : " + cli.getId() + ". Il/Elle se nomme " + cli.getNom() +" "+ cli.getPrenom()+  ".\n");
+		
 		}
 	return text;
 }
-	
 	public void saveCli(){
 		try{
 			FileOutputStream fos = new FileOutputStream("file02");
@@ -48,6 +51,7 @@ private static final long serialVersionUID = 1L;
 		}	
 	
 	}
+	
 	
 	public Person rechercherClient(int id){
 		Iterator<Person> iti = this.getListeClient().iterator();
@@ -61,4 +65,3 @@ private static final long serialVersionUID = 1L;
 		return null;
 }
 }
-

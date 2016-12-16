@@ -60,7 +60,7 @@ public class Catalogue implements Serializable {
 		int i = 1;
 		for (Produit p : maListe) {
 			text += (i + ".La réference du produit est : " + p.getRef() + "," + p.getDescription() + " il s'agit d'"
-					+ p.getNom() + " et au prix de " + p.getPrix() + " euros" + p.getDescriptionProduit() + "\n");
+					+ p.getNom() + " et au prix de " + p.getPrix() + " euros. " + p.getDescriptionProduit() + "\n");
 			i++;
 		}
 		return text;

@@ -2,9 +2,6 @@ package org.iae.annecy.st1.etape1.model.person;
 
 import java.io.Serializable;
 
-import org.iae.annecy.st1.common.mvc.AbstractDataView;
-import org.iae.annecy.st1.common.mvc.BasicDataView;
-import org.iae.annecy.st1.common.mvc.DataView;
 
 public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;

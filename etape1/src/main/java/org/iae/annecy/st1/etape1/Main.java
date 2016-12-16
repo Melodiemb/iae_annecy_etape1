@@ -1,18 +1,14 @@
-/**
- * 
- */
 
 package org.iae.annecy.st1.etape1;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
-import org.iae.annecy.st1.common.mvc.DataView;
-import org.iae.annecy.st1.common.mvc.StringView;
 import org.iae.annecy.st1.etape1.controller.CatalogueController;
 import org.iae.annecy.st1.etape1.controller.MainController;
 import org.iae.annecy.st1.etape1.model.Catalogue;
@@ -23,28 +19,29 @@ import org.iae.annecy.st1.etape1.model.person.Person;
 import org.iae.annecy.st1.etape1.model.person.PersonAddModel;
 import org.iae.annecy.st1.etape1.model.person.PersonGetModel;
 import org.iae.annecy.st1.etape1.model.produit.Produit;
-import org.iae.annecy.st1.etape1.view.UserTextFrenchView;
-import org.iae.annecy.st1.tools.ConsoleHelper;
 
+import org.iae.annecy.st1.tools.ConsoleHelper;
 
 public class Main {
 
-	
+	private static Scanner scanBasic;
+	private static Scanner scanFin;
+	private static Scanner scan;
 	private static MainController mainController;
 
 	static {
 		Main.mainController = new MainController();
 	}
 
-	
 	public static void main(final String[] args) throws Exception {
-		
+
 		Catalogue c1 = null;
-		c1 = new Catalogue(); // catalogue remonté en copie de produitMelodie
+		c1 = new Catalogue();
 
 		Scanner scanBasic = new Scanner(System.in);
 		int choixMenu = 0;
-		//int choixRetour = 0;
+		int chConti = 0;
+		// int choixRetour = 0;
 
 		do {
 			MenuView.afficherMenuPrincipal();
@@ -52,24 +49,19 @@ public class Main {
 			switch (choixMenu) {
 			case 1:
 				produitMelodie(c1);
-				MenuView.afficherMenuPrincipal();
-				choixMenu = scanBasic.nextInt();
+				
 				break;
 			case 2:
 				produitJDE();
-				MenuView.afficherMenuPrincipal();
-				choixMenu = scanBasic.nextInt();
+				
 				break;
 			case 3:
 				produitClient(c1);
-				MenuView.menupanier();
-				choixMenu = scanBasic.nextInt();
-				
 				break;
-
 			}
-
-		} while (choixMenu < 4);
+			ConsoleHelper.display("Voulre-vous effectuer un retour au menu princpal? 1.Oui\n" + " 2.Non");
+			chConti = scanBasic.nextInt();
+		} while (chConti == 1);
 	}
 
 	public static void initUserModel() {
@@ -91,8 +83,9 @@ public class Main {
 				" Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
 		Produit p2 = new Produit("REFGE", "un porte-feuille", "le produit est en cuir", 6,
 				" Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
-		// crer autres produit
-
+		Produit p3 = new Produit("MOP", "un sapin", "le produit est en pin végétal", 30,
+				"Ce sapin vous apportera l'esprit de noel.");
+		
 		try {
 			File fichier = new File("file");
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
@@ -101,6 +94,8 @@ public class Main {
 			c1 = new Catalogue();
 			c1.ajouterProduit(p1);
 			c1.ajouterProduit(p2);
+			c1.ajouterProduit(p3);
+			
 		}
 
 		scanBasic = new Scanner(System.in);
@@ -127,11 +122,10 @@ public class Main {
 						if (choixAttribut == 1) {
 							ConsoleHelper.display("Veuillez rentrer le prix désiré: ");
 							c1.rechercherProduits(choixProduit).setPrix(scanBasic.nextDouble());
-							
+
 						} else if (choixAttribut == 2) {
 							ConsoleHelper.display("Veuillez rentrer la description désirée: ");
 							c1.rechercherProduits(choixProduit).setDescription(scanBasic.nextLine());
-							
 
 						} else if (choixAttribut == 3) {
 							ConsoleHelper.display("Veuillez rentrer le nom désiré: ");
@@ -184,10 +178,10 @@ public class Main {
 		} while (choixMenu < 4);
 	}
 
-	private static void produitJDE() throws IOException, Exception {
+	private static void produitJDE() throws IOException, ClassNotFoundException {
 
 		Client cli1 = new Client();
-		Person pers1 = new Person(18, "Jean-pierre", "JP");
+		Person pers1 = new Person(18, "Tudor", "Jean-Pierre");
 
 		try {
 			File fichier = new File("file02");
@@ -201,104 +195,108 @@ public class Main {
 		initUserModel();
 		initCustomerModel();
 
-		final Scanner scan = new Scanner(System.in, "UTF-8");
+		scan = new Scanner(System.in, "UTF-8");
 		int choixMenu = 0;
 		int choixRetour = 0;
 
-		MenuView.afficherMenuClient();
-		choixMenu = scan.nextInt();
+		// MenuView.afficherMenuClient();
+		// choixMenu = scan.nextInt();
 
 		int choixMe = 0;
-		do {
+		// do {
+		MenuView.afficherMenuClient();
+		choixMenu = 0;
+		choixMenu = scan.nextInt();
+		switch (choixMenu) {
+		case 1:
 
-			switch (choixMenu) {
+			ConsoleHelper.display(cli1.afficherListeClient());
+
+			// MenuView.afficherMenuClient();
+			// choixMenu = scan.nextInt();
+			break;
+		case 2:
+
+			int personId;
+			String personNom;
+			String personPrenom;
+
+			ConsoleHelper.display("Quel est l'ID du client ?");
+			personId = scan.nextInt();
+
+			ConsoleHelper.display("Quel est le nom du client ?");
+			personNom = scan.next();
+
+			ConsoleHelper.display("Quel est le prénom du client ?");
+			personPrenom = scan.next();
+
+			Person newpersonne = new Person(personId, personNom, personPrenom);
+
+			cli1.ajouterClient(newpersonne);
+			cli1.saveCli();
+
+			ConsoleHelper.display("Vous venez de créer un client.\n");
+
+			/*
+			 * MenuView.afficherMenuClient(); choixMenu = scan.nextInt();
+			 */
+			break;
+		case 3:
+			ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
+
+			ConsoleHelper.display(cli1.afficherListeClient());
+			int chxClient = scan.nextInt();
+			ConsoleHelper.display("Quel attribut souhaitez-vous changer?" + "\n 1.Nom" + "\n 2.Prénom");
+			int chxAttribut = scan.nextInt();
+
+			switch (chxAttribut) {
 			case 1:
-
-				ConsoleHelper.display(cli1.afficherListeClient());
-
-				MenuView.afficherMenuClient();
-				choixMenu = scan.nextInt();
+				ConsoleHelper.display("Quel est le nouveau nom?");
+				cli1.rechercherClient(chxClient).setNom(scan.next());
 				break;
 			case 2:
-
-				int personId;
-				String personNom;
-				String personPrenom;
-				int personCodePromo;
-
-				ConsoleHelper.display("Quel est l'ID du client ?");
-				personId = scan.nextInt();
-
-				ConsoleHelper.display("Quel est le nom du client ?");
-				personNom = scan.next();
-
-				ConsoleHelper.display("Quel est le prénom du client ?");
-				personPrenom = scan.next();
-
-				Person newpersonne = new Person(personId, personNom, personPrenom);
-
-				cli1.ajouterClient(newpersonne);
-				cli1.saveCli();
-
-				ConsoleHelper.display("Vous venez de créer un client.\n");
-
-				MenuView.afficherMenuClient();
-				choixMenu = scan.nextInt();
+				ConsoleHelper.display("Quel est le nouveau prénom?");
+				cli1.rechercherClient(chxClient).setPrenom(scan.next());
 				break;
-			case 3:
-				ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
 
-				ConsoleHelper.display(cli1.afficherListeClient());
-				int chxClient = scan.nextInt();
-				ConsoleHelper.display("Quel attribut souhaitez-vous changer?" + "\n 1.Nom" + "\n 2.Prénom");
-				int chxAttribut = scan.nextInt();
-
-				switch (chxAttribut) {
-				case 1:
-					ConsoleHelper.display("Quel est le nouveau nom?");
-					cli1.rechercherClient(chxClient).setNom(scan.next());
-					break;
-				case 2:
-					ConsoleHelper.display("Quel est le nouveau prénom?");
-					cli1.rechercherClient(chxClient).setPrenom(scan.next());
-					break;
-
-				}
-
-				cli1.saveCli();
-				
-				break;
 			}
 
-			ConsoleHelper.display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
-			choixRetour = scan.nextInt();
-		} while (choixMe == 2);
+			cli1.saveCli();
 
-		
+			break;
+		}
+
+		/*
+		 * ConsoleHelper.
+		 * display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
+		 * choixRetour = scan.nextInt();
+		 */
+		// } while (choixMe == 1);
+
 	}
 
-	final DataView userData = mainController.get("user:display");
-	final StringView userView = new UserTextFrenchView();
-	private static Scanner scanBasic;
-	private static Scanner scanFin;
 
-	
 	private static void produitClient(Catalogue c1) throws IOException, ClassNotFoundException {
 
-		Produit p1 = new Produit("REFLS", "une lampe", "le produit est en tissu", 5,
+		Produit p1 = new Produit("REL", "une lampe", "le produit est en tissu", 5,
 				" Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
-		Produit p2 = new Produit("REFGE", "un porte-feuille", "le produit est en cuir", 6,
+		Produit p2 = new Produit("REG", "un porte-feuille", "le produit est en cuir", 6,
 				" Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
-		
+		Produit p3 = new Produit("MOP", "un sapin", "le produit est en pin végétal", 30,
+				"Ce sapin vous apportera l'esprit de noel.");
+		Produit p4 = new Produit("LEF", "une plante", "le produit est vert", 8,
+				"le produit est certifié résistant à toutes les conditions métérologiques.");
+
 		Panier panier1 = new Panier();
 
 		c1 = new Catalogue();
 		c1.ajouterProduit(p1);
 		c1.ajouterProduit(p2);
-
+		c1.ajouterProduit(p3);
+		c1.ajouterProduit(p4);
 		scanFin = new Scanner(System.in);
 		int choix2Menu = 0;
-		// int choix2Retour = 0;
+
 		int choix3Menu = 0;
 
 		int chq = 0;
