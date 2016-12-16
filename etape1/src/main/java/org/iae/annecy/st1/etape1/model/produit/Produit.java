@@ -7,7 +7,7 @@ public class Produit implements Serializable{
 
 	private String description, ref, nom, descriptionProduit;
 	private double prix;
-	private int Quant;
+	private int quant;
 	
 	public Produit(){
 		
@@ -62,9 +62,9 @@ public class Produit implements Serializable{
 			return t;
 	}
 	public int getQuant() {
-		return Quant;
+		return quant;
 	}
 	public void setQuant(int quant) {
-		Quant = quant;
+		this.quant = quant;
 	}
 }

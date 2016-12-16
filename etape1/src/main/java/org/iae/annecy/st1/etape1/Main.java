@@ -7,20 +7,13 @@ package org.iae.annecy.st1.etape1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.sql.Savepoint;
 import java.util.Scanner;
 
-import org.iae.annecy.st1.common.mvc.BasicDataParam;
-import org.iae.annecy.st1.common.mvc.ConsoleInputView;
-import org.iae.annecy.st1.common.mvc.DataParam;
 import org.iae.annecy.st1.common.mvc.DataView;
 import org.iae.annecy.st1.common.mvc.StringView;
 import org.iae.annecy.st1.etape1.controller.CatalogueController;
-import org.iae.annecy.st1.etape1.controller.ClientController;
 import org.iae.annecy.st1.etape1.controller.MainController;
 import org.iae.annecy.st1.etape1.model.Catalogue;
 import org.iae.annecy.st1.etape1.model.UserModel;
@@ -31,78 +24,59 @@ import org.iae.annecy.st1.etape1.model.person.PersonAddModel;
 import org.iae.annecy.st1.etape1.model.person.PersonGetModel;
 import org.iae.annecy.st1.etape1.model.produit.Produit;
 import org.iae.annecy.st1.etape1.view.UserTextFrenchView;
-import org.iae.annecy.st1.etape1.view.person.PersonAddFrenchView;
-import org.iae.annecy.st1.etape1.view.person.PersonCreateFrenchView;
-import org.iae.annecy.st1.etape1.view.person.PersonGetFrenchView;
 import org.iae.annecy.st1.tools.ConsoleHelper;
-/**
- * Classe permetant de tester le MVC.
- * 
- * @author Djer1013
- */
-public class Main{
 
-	/**
-	 * COntroller pemetant le traitement des actions d'exemple.
-	 */
+
+public class Main {
+
+	
 	private static MainController mainController;
 
 	static {
 		Main.mainController = new MainController();
 	}
 
-	/**
-	 * Lance l'application.
-	 * 
-	 * @param args
-	 *            command line parameters
-	 * @throws Exception 
-	 */
+	
 	public static void main(final String[] args) throws Exception {
-		//throws IOException, ClassNotFoundException {
+		
 		Catalogue c1 = null;
-		c1 = new Catalogue(); //catalogue remonté en copie de produitMelodie
-
+		c1 = new Catalogue(); // catalogue remonté en copie de produitMelodie
 
 		Scanner scanBasic = new Scanner(System.in);
 		int choixMenu = 0;
-		int choixRetour = 0;
+		//int choixRetour = 0;
 
-		do{
+		do {
 			MenuView.afficherMenuPrincipal();
-			choixMenu = scanBasic.nextInt(); 
-			switch(choixMenu){
-			case 1 : 
+			choixMenu = scanBasic.nextInt();
+			switch (choixMenu) {
+			case 1:
 				produitMelodie(c1);
 				MenuView.afficherMenuPrincipal();
-				choixMenu = scanBasic.nextInt(); 
+				choixMenu = scanBasic.nextInt();
 				break;
-			case 2 :
+			case 2:
 				produitJDE();
 				MenuView.afficherMenuPrincipal();
-				choixMenu = scanBasic.nextInt(); 
-				break ;
-			case 3 :
+				choixMenu = scanBasic.nextInt();
+				break;
+			case 3:
 				produitClient(c1);
 				MenuView.menupanier();
-				choixMenu = scanBasic.nextInt(); 
-				/*CatalogueController cat1 = new CatalogueController();
-				cat1.setCat(c1); 
-				ConsoleHelper.display(cat1.get());*/
-				break ;
-
+				choixMenu = scanBasic.nextInt();
+				
+				break;
 
 			}
 
-		}while(choixMenu<4);
+		} while (choixMenu < 4);
 	}
-
-	
 
 	public static void initUserModel() {
 		final UserModel userModel = new UserModel();
 		userModel.register(mainController);
-	} 
+	}
+
 	private static void initCustomerModel() {
 		final PersonGetModel customerGetModel = new PersonGetModel();
 		customerGetModel.register(mainController);
@@ -111,17 +85,17 @@ public class Main{
 		customerAddModel.register(mainController);
 	}
 
+	private static void produitMelodie(Catalogue c1) throws ClassNotFoundException, IOException {
 
-	private static void produitMelodie(Catalogue c1) throws ClassNotFoundException, IOException{
+		Produit p1 = new Produit("REFLS", "une lampe", "le produit est en tissu", 5,
+				" Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
+		Produit p2 = new Produit("REFGE", "un porte-feuille", "le produit est en cuir", 6,
+				" Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
+		// crer autres produit
 
-
-		Produit p1 = new Produit("REFLS","une lampe", "le produit est en tissu",5," Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
-		Produit p2 = new Produit("REFGE","un porte-feuille", "le produit est en cuir",6," Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
-		//crer autres produit
-		
 		try {
 			File fichier = new File("file");
-			ObjectInputStream ois = new ObjectInputStream (new FileInputStream(fichier));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 			c1 = (Catalogue) ois.readObject();
 		} catch (FileNotFoundException e) {
 			c1 = new Catalogue();
@@ -129,107 +103,97 @@ public class Main{
 			c1.ajouterProduit(p2);
 		}
 
-
-		Scanner sc = new Scanner(System.in);
+		scanBasic = new Scanner(System.in);
 		int choixMenu = 0;
 		int choixRetour = 0;
-		do{
+		do {
 
-			do{
+			do {
 				MenuView.afficherMenu();
 
-				choixMenu = sc.nextInt(); 
-				if (choixMenu ==1){
+				choixMenu = scanBasic.nextInt();
+				if (choixMenu == 1) {
 					String choixProduit = null;
 
 					CatalogueController cat1 = new CatalogueController();
-					cat1.setCat(c1); 
-					System.out.println(cat1.get());
+					cat1.setCat(c1);
+					ConsoleHelper.display(cat1.get());
 
-					choixProduit = sc.next();
+					choixProduit = scanBasic.next();
 					int choixAttribut = 0;
-					do{
+					do {
 						MenuView.afficherAttribut();
-						choixAttribut = sc.nextInt(); 
-						if (choixAttribut ==1){
+						choixAttribut = scanBasic.nextInt();
+						if (choixAttribut == 1) {
 							ConsoleHelper.display("Veuillez rentrer le prix désiré: ");
-							c1.rechercherProduits(choixProduit).setPrix(sc.nextDouble());//iterateur il manque les set prix
-						}
-						else if(choixAttribut ==2){
+							c1.rechercherProduits(choixProduit).setPrix(scanBasic.nextDouble());
+							
+						} else if (choixAttribut == 2) {
 							ConsoleHelper.display("Veuillez rentrer la description désirée: ");
-							c1.rechercherProduits(choixProduit).setDescription(sc.nextLine());// il manque les set
+							c1.rechercherProduits(choixProduit).setDescription(scanBasic.nextLine());
+							
 
-						}
-						else if(choixAttribut ==3){
+						} else if (choixAttribut == 3) {
 							ConsoleHelper.display("Veuillez rentrer le nom désiré: ");
-							c1.rechercherProduits(choixProduit).setNom(sc.next());
+							c1.rechercherProduits(choixProduit).setNom(scanBasic.next());
 
-						}
-						else if(choixAttribut ==4){
+						} else if (choixAttribut == 4) {
 							ConsoleHelper.display("Veuillez rentrer la description exhaustive du produit:");
-							sc.nextLine();
-							c1.rechercherProduits(choixProduit).setDescriptionProduit(sc.nextLine());
+							scanBasic.nextLine();
+							c1.rechercherProduits(choixProduit).setDescriptionProduit(scanBasic.nextLine());
 						}
 
-
-
-					} while(!(choixAttribut ==1 || choixAttribut ==2 || choixAttribut ==3 || choixAttribut ==4));
+					} while (!(choixAttribut == 1 || choixAttribut == 2 || choixAttribut == 3 || choixAttribut == 4));
 					c1.save();
 
-				}
-				else if(choixMenu ==2){
+				} else if (choixMenu == 2) {
 					CatalogueController cat1 = new CatalogueController();
-					cat1.setCat(c1); 
-					ConsoleHelper.display(cat1.get()); 
+					cat1.setCat(c1);
+					ConsoleHelper.display(cat1.get());
 
-
-				}
-				else if(choixMenu ==3){
+				} else if (choixMenu == 3) {
 					ConsoleHelper.display("Veuillez renseigner le nom du produit");
-					String nom = sc.next();
+					String nom = scanBasic.next();
 					ConsoleHelper.display("Veuillez renseigner la référence");
-					String ref = sc.next();
-					while(ref.equals(c1.rechercherProduits(ref).getRef())){
+					String ref = scanBasic.next();
+					while (ref.equals(c1.rechercherProduits(ref).getRef())) {
 						ConsoleHelper.display("La réference existe déjà, veuillez inserer une nouvelle!");
-						ref = sc.next();
+						ref = scanBasic.next();
 					}
 					ConsoleHelper.display("Veuillez renseigner une courte description");
-					String description = sc.nextLine();
-					sc.nextLine();
+					String description = scanBasic.nextLine();
+					scanBasic.nextLine();
 					ConsoleHelper.display("Veuillez renseigner une longue description");
-					String descriptionProduit = sc.nextLine();
+					String descriptionProduit = scanBasic.nextLine();
 					ConsoleHelper.display("Veuillez renseigner le prix desiré pour ce produit");
-					int prix = sc.nextInt();
-					while (prix<=0){
+					int prix = scanBasic.nextInt();
+					while (prix <= 0) {
 						ConsoleHelper.display("Le prix est négatif, veuillez insérer en un nouveau");
-						prix = sc.nextInt();
+						prix = scanBasic.nextInt();
 					}
-					new Produit(ref,nom, description, prix, descriptionProduit);
-					c1.ajouterProduit(new Produit(ref,nom, description, prix, descriptionProduit));
+					new Produit(ref, nom, description, prix, descriptionProduit);
+					c1.ajouterProduit(new Produit(ref, nom, description, prix, descriptionProduit));
 
 					ConsoleHelper.display("Vous venez de créer un produit");
 				}
 				c1.save();
 				ConsoleHelper.display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
-				choixRetour = sc.nextInt();
+				choixRetour = scanBasic.nextInt();
 
-			} while(choixRetour == 1);
-		} while(choixMenu<4);
+			} while (choixRetour == 1);
+		} while (choixMenu < 4);
 	}
 
-
-
-	private static void produitJDE() throws IOException, Exception{
+	private static void produitJDE() throws IOException, Exception {
 
 		Client cli1 = new Client();
-		Person pers1 = new Person(18,"Jean-pierre","JP");
-
+		Person pers1 = new Person(18, "Jean-pierre", "JP");
 
 		try {
 			File fichier = new File("file02");
-			ObjectInputStream ois = new ObjectInputStream (new FileInputStream(fichier));
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
 			cli1 = (Client) ois.readObject();
-		} catch (FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			cli1 = new Client();
 			cli1.ajouterClient(pers1);
 		}
@@ -244,26 +208,23 @@ public class Main{
 		MenuView.afficherMenuClient();
 		choixMenu = scan.nextInt();
 
-		//Person pers1 = new Person(18,"Jean-pierre","JP");
-		//cli1.ajouterClient(pers1);
 		int choixMe = 0;
-		do{
+		do {
 
+			switch (choixMenu) {
+			case 1:
 
-
-			switch(choixMenu){
-			case 1 : 
-
-				System.out.println(cli1.afficherListeClient());
+				ConsoleHelper.display(cli1.afficherListeClient());
 
 				MenuView.afficherMenuClient();
-				choixMenu = scan.nextInt(); 
+				choixMenu = scan.nextInt();
 				break;
-			case 2 :
-				//DataParam newCustomer = new BasicDataParam();
+			case 2:
+
 				int personId;
 				String personNom;
 				String personPrenom;
+				int personCodePromo;
 
 				ConsoleHelper.display("Quel est l'ID du client ?");
 				personId = scan.nextInt();
@@ -274,143 +235,92 @@ public class Main{
 				ConsoleHelper.display("Quel est le prénom du client ?");
 				personPrenom = scan.next();
 
-				Person newpersonne = new Person(personId,personNom,personPrenom);
+				Person newpersonne = new Person(personId, personNom, personPrenom);
 
 				cli1.ajouterClient(newpersonne);
 				cli1.saveCli();
 
 				ConsoleHelper.display("Vous venez de créer un client.\n");
 
-				/*final DataView customerAddData = mainController.get("person:add", newCustomer);
-					final StringView customerAddView = new PersonAddFrenchView();
-
-					ConsoleHelper.display(customerAddView.build(customerAddData));*/
-
 				MenuView.afficherMenuClient();
-				choixMenu = scan.nextInt(); 
+				choixMenu = scan.nextInt();
 				break;
-			case 3 :	
+			case 3:
 				ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
 
 				ConsoleHelper.display(cli1.afficherListeClient());
 				int chxClient = scan.nextInt();
-				ConsoleHelper.display("Quel attribut souhaitez-vous changer?" + "\n 1.Nom" +"\n 2.Prénom");
+				ConsoleHelper.display("Quel attribut souhaitez-vous changer?" + "\n 1.Nom" + "\n 2.Prénom");
 				int chxAttribut = scan.nextInt();
 
-				switch(chxAttribut){
+				switch (chxAttribut) {
 				case 1:
 					ConsoleHelper.display("Quel est le nouveau nom?");
 					cli1.rechercherClient(chxClient).setNom(scan.next());
 					break;
-				case 2 :
+				case 2:
 					ConsoleHelper.display("Quel est le nouveau prénom?");
 					cli1.rechercherClient(chxClient).setPrenom(scan.next());
 					break;
 
-
 				}
 
-				cli1.saveCli();	
-				//Scanner scan1 = new Scanner(System.in);
-				/*int (chClient > clts.getPerson().size()){
-						ConsoleHelper.display("Message d'erreur, veuillez rentrer un client valide");
-				 */
+				cli1.saveCli();
+				
 				break;
 			}
 
 			ConsoleHelper.display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
 			choixRetour = scan.nextInt();
-		}while(choixMe == 2);
+		} while (choixMe == 2);
 
-
-
-
-		/*ClientController catCli = new ClientController();
-					catCli.setCatCli(cli1); 
-					System.out.println(catCli.get());*/
-
-
-
-		// get a Person
-		/*DataParam searchPersonParam = new BasicDataParam();
-			searchPersonParam.add("id", "10"); //0-5 inconu, 5-10 TEST, >10 DERUETTE
-			final DataView customerData = mainController.get("person:get", searchPersonParam);
-			final StringView customerGetView = new PersonGetFrenchView();
-
-			ConsoleHelper.display(customerGetView.build(customerData));*/
-
-		//demande l'ajout d'une personne attribut/attribut ------ hugo
-		/*DataParam newCustomer = new BasicDataParam();
-			String personId = ConsoleHelper.read(scan, "Quel est l'ID du client ?");
-			newCustomer.add("id", personId); // <100 = OK, sinon KO
-			String personNom = ConsoleHelper.read(scan, "Quel est le nom du client ?");
-			newCustomer.add("nom", personNom);
-			String personPrenom = ConsoleHelper.read(scan, "Quel est le prénom du client ?");
-			newCustomer.add("prenom", personPrenom);
-
-			final DataView customerAddData = mainController.get("person:add", newCustomer);
-			final StringView customerAddView = new PersonAddFrenchView();
-
-			ConsoleHelper.display(customerAddView.build(customerAddData));*/
-
-		//Demande l'ajout d'une personne en une seul fois
-		/*final ConsoleInputView customerCreateView = new PersonCreateFrenchView();
-			customerCreateView.ask(scan);
-
-			final DataView customerAddDataBulk = mainController.get("person:add", newCustomer);
-			final StringView customerAddViewBulk = new PersonAddFrenchView();
-
-			ConsoleHelper.display(customerAddViewBulk.build(customerAddDataBulk));
-		 */
+		
 	}
+
 	final DataView userData = mainController.get("user:display");
 	final StringView userView = new UserTextFrenchView();
+	private static Scanner scanBasic;
+	private static Scanner scanFin;
 
+	
+	private static void produitClient(Catalogue c1) throws IOException, ClassNotFoundException {
 
-	//ConsoleHelper.display(userView.build(userData));
-	private static void produitClient(Catalogue c1) throws IOException, ClassNotFoundException{
-
-		Produit p1 = new Produit("REFLS","une lampe", "le produit est en tissu",5," Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
-		Produit p2 = new Produit("REFGE","un porte-feuille", "le produit est en cuir",6," Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
-		//crer autres produit
+		Produit p1 = new Produit("REFLS", "une lampe", "le produit est en tissu", 5,
+				" Cette lampe est de grande qualité, exportée depuis l'Asie elle apportera une réelle harmonie feing-shui à votre interieur.");
+		Produit p2 = new Produit("REFGE", "un porte-feuille", "le produit est en cuir", 6,
+				" Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
+		
 		Panier panier1 = new Panier();
 
 		c1 = new Catalogue();
 		c1.ajouterProduit(p1);
 		c1.ajouterProduit(p2);
 
-		/*CatalogueController cat1 = new CatalogueController();
-		cat1.setCat(c1); 
-		ConsoleHelper.display(cat1.get());*/
-
-
-		Scanner scanFin = new Scanner(System.in);
+		scanFin = new Scanner(System.in);
 		int choix2Menu = 0;
-		int choix2Retour = 0;
+		// int choix2Retour = 0;
 		int choix3Menu = 0;
 
-		
-
-		int chq=0;
-		int qt =0;
-		int prixtotal = 0;
+		int chq = 0;
+		int qt = 0;
+		int prixTotal = 0;
 		int prix = 0;
+		int codePromo = 0;
+		double px = 0;
+		double prixPromo = 0;
+		double prixCalcul = 0;
 
-		do{
+		do {
 			MenuView.menupanier();
 
-			choix2Menu = scanFin.nextInt(); 
-			if (choix2Menu ==1){
+			choix2Menu = scanFin.nextInt();
+			if (choix2Menu == 1) {
 				ConsoleHelper.display(c1.afficherMaListe());
-				/*CatalogueController cat2 = new CatalogueController(c1);
-					cat2.setCat(c1); 
-					ConsoleHelper.display(cat2.get());*/
-				//ConsoleHelper.display(cat1.get());
 
-			}else{ 
-				do{
+			} else {
+				do {
 					CatalogueController cat4 = new CatalogueController(c1);
-					cat4.setCat(c1); 
+					cat4.setCat(c1);
 					ConsoleHelper.display(cat4.get());
 
 					ConsoleHelper.display("Entrez la référence du produit que vous voulez ajouter:");
@@ -423,36 +333,41 @@ public class Main{
 					ConsoleHelper.display("•*´¨`*•.¸ Voici votre panier: ¸.•*´¨`*•.¸");
 					PanierController panier01 = new PanierController(panier1);
 					ConsoleHelper.display(panier01.get());
-					prix = (int) (panier1.retrouveProduitpanier(choixProduitPanier).getPrix()*qt);
-					prixtotal = prixtotal+prix;
-					ConsoleHelper.display("Voici le prix total de votre panie:"+prixtotal);
-					ConsoleHelper.display("Voulez-vous ajouter d'autres produits?\n"
-							+ "1. Oui\n"
-							+ "2. Non");
-					choix3Menu = scanFin.nextInt(); 
-				}while(choix3Menu ==1);
-				ConsoleHelper.display("Voici le prix total de votre panie:"+prixtotal);
-				ConsoleHelper.display("Voulez-vous mettre votre panier en commande?\n"
-						+ "1. Oui\n"
-						+ "2. Non");
+					prix = (int) (panier1.retrouveProduitpanier(choixProduitPanier).getPrix() * qt);
+					prixTotal = prixTotal + prix;
+					ConsoleHelper.display("Voici le prix total de votre panier:" + prixTotal);
+					ConsoleHelper.display("Voulez-vous ajouter d'autres produits?\n" + "1. Oui\n" + "2. Non");
+					choix3Menu = scanFin.nextInt();
+
+				} while (choix3Menu == 1);
+				ConsoleHelper.display("Disposez-vous d'un code de promotion?" + "1. Oui" + "2. Non");
+				codePromo = scanFin.nextInt();
+
+				if (codePromo == 1) {
+					ConsoleHelper.display("Veuillez rentrer votre pourcentage de promotion");
+
+					int pourcentage = scanFin.nextInt();
+					px = pourcentage;
+					prixCalcul = (px / 100);
+					prixPromo = prixTotal * prixCalcul;
+					ConsoleHelper.display("Voici le prix total du panier: " + prixPromo + "€");
+
+				} else {
+					ConsoleHelper.display("Voici le prix total du panier: " + prixTotal + "€\n");
+				}
+
+				ConsoleHelper.display("Voulez-vous mettre votre panier en commande?\n" + "1. Oui\n" + "2. Non");
 				choix3Menu = scanFin.nextInt();
-				if(choix3Menu ==1){
+				if (choix3Menu == 1) {
 					ConsoleHelper.display("• ˚ •˛•˚ * 。Création de votre commande en cours 。• ˚ •˛•˚ * 。\n");
 				} else {
 					ConsoleHelper.display("Abandon & fin de la commande.");
 				}
-				
 
-			}	
-			ConsoleHelper.display("Voulez-vous continuer?\n"
-					+ "1. Oui\n"
-					+ "2. Non");
+			}
+			ConsoleHelper.display("Voulez-vous continuer?\n" + "1. Oui\n" + "2. Non");
 			chq = scanFin.nextInt();
-		}while(chq ==1);
+		} while (chq == 1);
 
 	}
 }
-
-
-
-

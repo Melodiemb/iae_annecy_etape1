@@ -11,6 +11,7 @@ public class Person implements Serializable{
 	private Integer id;
 	private String nom;
 	private String prenom;
+	
 
 	public Person() {
 		
@@ -21,6 +22,7 @@ public class Person implements Serializable{
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
+	
 	}
 	
 	
@@ -48,5 +50,7 @@ public class Person implements Serializable{
 	public void setPrenom(final String prenom) {
 		this.prenom = prenom;
 	}
+
+	
 
 }

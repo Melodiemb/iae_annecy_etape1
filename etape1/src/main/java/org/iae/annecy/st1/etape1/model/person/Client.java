@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.iae.annecy.st1.etape1.model.produit.Produit;
+//import org.iae.annecy.st1.etape1.model.produit.Produit;
 
 public class Client implements Serializable{
 private static final long serialVersionUID = 1L;
