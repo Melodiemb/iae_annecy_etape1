@@ -1,9 +1,7 @@
 package org.iae.annecy.st1.etape1.model.person;
 
-import org.iae.annecy.st1.common.mvc.Controller;
-import org.iae.annecy.st1.common.mvc.DataParam;
+
 import org.iae.annecy.st1.common.mvc.DataView;
-import org.iae.annecy.st1.common.mvc.Model;
 import org.iae.annecy.st1.etape1.controller.MainController;
 
 public class PersonGetModel {

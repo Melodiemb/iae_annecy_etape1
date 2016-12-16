@@ -28,6 +28,7 @@ public class Main {
 	private static Scanner scanFin;
 	private static Scanner scan;
 	private static MainController mainController;
+	private static ObjectInputStream ois;
 
 	static {
 		Main.mainController = new MainController();
@@ -41,7 +42,6 @@ public class Main {
 		Scanner scanBasic = new Scanner(System.in);
 		int choixMenu = 0;
 		int chConti = 0;
-		// int choixRetour = 0;
 
 		do {
 			MenuView.afficherMenuPrincipal();
@@ -49,17 +49,17 @@ public class Main {
 			switch (choixMenu) {
 			case 1:
 				produitMelodie(c1);
-				
+
 				break;
 			case 2:
 				produitJDE();
-				
+
 				break;
 			case 3:
 				produitClient(c1);
 				break;
 			}
-			ConsoleHelper.display("Voulre-vous effectuer un retour au menu princpal? 1.Oui\n" + " 2.Non");
+			ConsoleHelper.display("Voulez-vous effectuer un retour au menu principal?\n" + " 1.Oui\n" + " 2.Non");
 			chConti = scanBasic.nextInt();
 		} while (chConti == 1);
 	}
@@ -85,17 +85,17 @@ public class Main {
 				" Ce porte-feuille est un produit de grande qualité venant tout droit des hautes-alpes, il est moderne et très à la mode.");
 		Produit p3 = new Produit("MOP", "un sapin", "le produit est en pin végétal", 30,
 				"Ce sapin vous apportera l'esprit de noel.");
-		
+
 		try {
 			File fichier = new File("file");
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
+			ois = new ObjectInputStream(new FileInputStream(fichier));
 			c1 = (Catalogue) ois.readObject();
 		} catch (FileNotFoundException e) {
 			c1 = new Catalogue();
 			c1.ajouterProduit(p1);
 			c1.ajouterProduit(p2);
 			c1.ajouterProduit(p3);
-			
+
 		}
 
 		scanBasic = new Scanner(System.in);
@@ -108,11 +108,13 @@ public class Main {
 
 				choixMenu = scanBasic.nextInt();
 				if (choixMenu == 1) {
+
 					String choixProduit = null;
 
 					CatalogueController cat1 = new CatalogueController();
 					cat1.setCat(c1);
 					ConsoleHelper.display(cat1.get());
+					ConsoleHelper.display("Veuillez rentrer la référence du produit que vous voulez modifier: ");
 
 					choixProduit = scanBasic.next();
 					int choixAttribut = 0;
@@ -199,11 +201,8 @@ public class Main {
 		int choixMenu = 0;
 		int choixRetour = 0;
 
-		// MenuView.afficherMenuClient();
-		// choixMenu = scan.nextInt();
-
 		int choixMe = 0;
-		// do {
+
 		MenuView.afficherMenuClient();
 		choixMenu = 0;
 		choixMenu = scan.nextInt();
@@ -212,8 +211,6 @@ public class Main {
 
 			ConsoleHelper.display(cli1.afficherListeClient());
 
-			// MenuView.afficherMenuClient();
-			// choixMenu = scan.nextInt();
 			break;
 		case 2:
 
@@ -237,12 +234,9 @@ public class Main {
 
 			ConsoleHelper.display("Vous venez de créer un client.\n");
 
-			/*
-			 * MenuView.afficherMenuClient(); choixMenu = scan.nextInt();
-			 */
 			break;
 		case 3:
-			ConsoleHelper.display("Quel client souhaitez-vous modifier? (Numéro d'ID)");
+			ConsoleHelper.display("Quel client souhaitez-vous modifier? Veuillez inserer son numéro ID...");
 
 			ConsoleHelper.display(cli1.afficherListeClient());
 			int chxClient = scan.nextInt();
@@ -266,15 +260,7 @@ public class Main {
 			break;
 		}
 
-		/*
-		 * ConsoleHelper.
-		 * display("Voulez-vous revenir au menu du catalogue ? 1. Oui 2. Non");
-		 * choixRetour = scan.nextInt();
-		 */
-		// } while (choixMe == 1);
-
 	}
-
 
 	private static void produitClient(Catalogue c1) throws IOException, ClassNotFoundException {
 
@@ -342,13 +328,14 @@ public class Main {
 				codePromo = scanFin.nextInt();
 
 				if (codePromo == 1) {
-					ConsoleHelper.display("Veuillez rentrer votre pourcentage de promotion");
+					ConsoleHelper.display("Veuillez rentrer votre pourcentage de promotion:");
 
 					int pourcentage = scanFin.nextInt();
 					px = pourcentage;
 					prixCalcul = (px / 100);
 					prixPromo = prixTotal * prixCalcul;
-					ConsoleHelper.display("Voici le prix total du panier: " + prixPromo + "€");
+
+					ConsoleHelper.display("Voici le prix total du panier: " + (prixPromo) + "€");
 
 				} else {
 					ConsoleHelper.display("Voici le prix total du panier: " + prixTotal + "€\n");

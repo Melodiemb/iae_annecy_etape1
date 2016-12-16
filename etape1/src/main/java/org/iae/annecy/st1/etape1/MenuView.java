@@ -6,8 +6,8 @@ public class MenuView {
 
 	public static void afficherMenu() {
 
-		ConsoleHelper.display("\t♡ Menu du catalogue ♡ \n" + "1. Modifier un produit \n" + "2. Afficher le catalogue \n"
-				+ "3. Ajouter un produit \n" + "4. Retour menu principal");
+		ConsoleHelper.display("\t •*´¨`*•.¸¸Menu du catalogue •*´¨`*•.¸  \n" + "1. Modifier un produit \n"
+				+ "2. Afficher le catalogue \n" + "3. Ajouter un produit \n" + "4. Retour menu principal");
 	}
 
 	public static void afficherAttribut() {
@@ -16,7 +16,7 @@ public class MenuView {
 	}
 
 	public static void afficherMenuPrincipal() {
-		ConsoleHelper.display("•*´¨`*•.¸¸Bienvenue terrien! ʕ•́ᴥ•̀ʔっ •*´¨`*•.¸\n");
+		ConsoleHelper.display("•*´¨`*•.¸¸Bienvenue!•*´¨`*•.¸\n");
 		ConsoleHelper
 				.display("1. Gestion du catalogue produit\n" + "2. Gestion du repertoire client\n" + "3. Accès client");
 	}
@@ -27,7 +27,7 @@ public class MenuView {
 	}
 
 	public static void menupanier() {
-		ConsoleHelper.display("Bonjour, vous pouvez faire votre choix entre les différentes rubriques \n"
-				+ "1.Afficher la liste de produits \n" + "2.Ajouter des produits \n");
+		ConsoleHelper.display("Bonjour, vous pouvez faire votre choix entre les différentes rubriques: \n"
+				+ "1.Afficher la liste de produits \n" + "2.Ajouter des produits à votre commande \n");
 	}
 }

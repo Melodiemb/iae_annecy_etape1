@@ -9,7 +9,6 @@ import java.util.Iterator;
 
 import org.iae.annecy.st1.etape1.model.produit.Produit;
 
-@SuppressWarnings("serial")
 public class Catalogue implements Serializable {
 
 	private ArrayList<Produit> maListe = new ArrayList<Produit>();
